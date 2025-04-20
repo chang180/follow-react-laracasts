@@ -1,26 +1,24 @@
 import { Heart } from "lucide-react";
-import * as React from "react";
+import { Image } from "../types";
+import { useLiked } from "../context/liked-context";
 
-export function LikeToggle() {
-    const [isLiked, setIsLiked] = React.useState(false);
-    const [count, setCount] = React.useState(0);
-
-    function handleClick() {
-        setIsLiked((prev) => !prev);
-        setCount((prev) => (isLiked ? prev - 1 : prev + 1));
-    }
+export function LikeToggle({ id }: { id: Image['id'] }) {
+    const { liked, setLiked } = useLiked();
 
     return (
-        <button className="group flex items-center gapj-1" onClick={handleClick}>
+        <button className="group" onClick={() => {
+            if (liked.includes(id)) {
+                setLiked(liked.filter((imageId) => imageId !== id));
+            } else {
+                setLiked([...liked, id]);
+            }
+        }}>
             <Heart
                 className={
-                    isLiked
+                    liked.includes(id)
                         ? "fill-red-500 stroke-red-500"
                         : "stroke-slate-200 group-hover:stroke-slate-300"
                 } />
-            <span className="text-sm font-semibold text-slate-700 group-hover:text-slate-900">
-                {count}
-            </span>
         </button>
     );
 }

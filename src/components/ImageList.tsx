@@ -1,6 +1,11 @@
 import { type Image } from "../types"; // Import the Image type from the types module
 import { LikeToggle } from "./LikeToggle";
-export function ImageList({ images }: { images: Image[] }) {
+
+export function ImageList({
+  images,
+}: {
+  images: Image[],
+}) {
   return (
     <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {images.map((image) => (
@@ -15,6 +20,7 @@ type ImageCardProps = {
 };
 
 function ImageCard({ image }: ImageCardProps) {
+
   return (
     <li
       key={image.id}
@@ -31,7 +37,7 @@ function ImageCard({ image }: ImageCardProps) {
           <span className="text-slate-300">·</span>
           <p className="text-slate-500">{image.vibe}</p>
         </div>
-        <LikeToggle />
+        <LikeToggle id={ image.id }/>
       </div>
     </li>
   );

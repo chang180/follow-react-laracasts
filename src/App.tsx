@@ -1,11 +1,7 @@
 import { Container } from "./components/Container";
 import { Header } from "./components/Header";
-import { ImageList } from "./components/ImageList";
-import { NewImageForm } from "./components/NewImageForm";
 import { PageWrapper } from "./components/PageWrapper";
-import { Search } from "./components/Search";
-import { Shortlist } from "./components/Shortlist";
-import { images } from "./data/images";
+import { Main } from "./main";
 
 function App() {
   return (
@@ -20,15 +16,4 @@ function App() {
 
 export default App;
 
-function Main() {
-  return (
-    <main>
-      <div className="mt-24 grid gap-8 sm:grid-cols-2">
-        <Search />
-        <Shortlist />
-      </div>
-      <ImageList images={ images } />
-      <NewImageForm />
-    </main>
-  );
-}
+
