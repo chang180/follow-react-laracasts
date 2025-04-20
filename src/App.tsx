@@ -5,6 +5,7 @@ import { NewImageForm } from "./components/NewImageForm";
 import { PageWrapper } from "./components/PageWrapper";
 import { Search } from "./components/Search";
 import { Shortlist } from "./components/Shortlist";
+import { images } from "./data/images";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function Main() {
         <Search />
         <Shortlist />
       </div>
-      <ImageList />
+      <ImageList images={ images } />
       <NewImageForm />
     </main>
   );
