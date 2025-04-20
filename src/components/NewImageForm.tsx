@@ -1,7 +1,32 @@
-export function NewImageForm() {
+import { Dispatch, SetStateAction } from "react";
+import { Image } from "../types";
+
+export function NewImageForm({
+  images,
+  setImages
+}: {
+  images: Image[],
+  setImages: Dispatch<SetStateAction<Image[]>>
+}) {
+
   return (
     <div className="mt-12 flex items-center justify-between bg-white p-8 shadow ring ring-black/5">
-      <form className="mt-4 flex w-full flex-col items-start gap-4">
+      <form
+        action={(formData: FormData) => {
+          const newIndex = images.length + 1;
+          // 使用 padStart 確保數字至least有兩位，不足的在前面補0
+          const paddedIndex = String(newIndex).padStart(3, '0');
+          
+          const newImage: Image = {
+            id: newIndex,
+            name: formData.get("name") as string,
+            vibe: formData.get("trait") as string,
+            imagePath: `/images/chihiro${paddedIndex}.jpg`,
+            // avatar_url: formData.get("avatar_url") as string,
+          };
+          setImages((prevImages) => [...prevImages, newImage]);
+        }}
+        className="mt-4 flex w-full flex-col items-start gap-4">
         <div className="grid w-full gap-6 md:grid-cols-3">
           <fieldset className="flex w-full flex-col gap-1">
             <label htmlFor="name">Name</label>
@@ -31,6 +56,7 @@ export function NewImageForm() {
               id="avatar_url"
               type="file"
               name="avatar_url"
+              disabled
             />
           </fieldset>
         </div>

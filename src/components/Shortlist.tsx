@@ -14,7 +14,7 @@ export function Shortlist({ images }: { images: Image[] }) {
       </h2>
       <ul className="mt-4 flex flex-wrap gap-4">
         {images.filter((img) => liked.includes(img.id)).map((image) => (
-          <li className="relative flex items-center overflow-clip rounded-md bg-white shadow-sm ring ring-black/5 transition duration-100 starting:scale-0 starting:opacity-0">
+          <li key={image.id} className="relative flex items-center overflow-clip rounded-md bg-white shadow-sm ring ring-black/5 transition duration-100 starting:scale-0 starting:opacity-0">
             <img
               height={32}
               width={32}

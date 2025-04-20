@@ -3,5 +3,4 @@ export type Image = {
     name: string;
     vibe: string;
     imagePath: string;
-    isLiked: boolean;
     }

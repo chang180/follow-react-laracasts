@@ -6,8 +6,9 @@ import { Search } from "./components/Search";
 import { Shortlist } from "./components/Shortlist";
 import { ImageList } from "./components/ImageList";
 import { NewImageForm } from "./components/NewImageForm";
-import { images } from "./data/images";
+import { images as imagesData } from "./data/images";
 import { LikedContext } from "./context/liked-context";
+import { Image } from "./types";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -18,6 +19,7 @@ createRoot(document.getElementById("root")).render(
 export function Main() {
   const [liked, setLiked] = useState<number[]>([1, 3]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [images, setImages] = useState<Image[]>(imagesData);
   return (
     <main>
       <LikedContext value={{ liked, setLiked }}>
@@ -27,7 +29,7 @@ export function Main() {
         </div>
         <ImageList images={images} searchQuery={searchQuery} />
       </LikedContext>
-      <NewImageForm />
+      <NewImageForm images={images} setImages={setImages}/>
     </main>
   );
 }
