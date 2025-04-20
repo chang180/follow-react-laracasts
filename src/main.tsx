@@ -17,14 +17,15 @@ createRoot(document.getElementById("root")).render(
 
 export function Main() {
   const [liked, setLiked] = useState<number[]>([1, 3]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   return (
     <main>
       <LikedContext value={{ liked, setLiked }}>
         <div className="mt-24 grid gap-8 sm:grid-cols-2">
-          <Search />
+          <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <Shortlist images={images} />
         </div>
-        <ImageList images={images} />
+        <ImageList images={images} searchQuery={searchQuery} />
       </LikedContext>
       <NewImageForm />
     </main>

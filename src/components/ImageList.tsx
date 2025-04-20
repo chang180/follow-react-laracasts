@@ -3,14 +3,18 @@ import { LikeToggle } from "./LikeToggle";
 
 export function ImageList({
   images,
+  searchQuery
 }: {
   images: Image[],
+  searchQuery: string;
 }) {
   return (
     <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {images.map((image) => (
-        <ImageCard key={image.id} image={image} /> // Pass the image prop to ImageCard
-      ))}
+      {images
+        .filter((img) => img.vibe.toLowerCase().includes(searchQuery.toLowerCase())) // Filter images based on the search query
+        .map((image) => (
+          <ImageCard key={image.id} image={image} /> // Pass the image prop to ImageCard
+        ))}
     </ul>
   );
 }
@@ -37,7 +41,7 @@ function ImageCard({ image }: ImageCardProps) {
           <span className="text-slate-300">·</span>
           <p className="text-slate-500">{image.vibe}</p>
         </div>
-        <LikeToggle id={ image.id }/>
+        <LikeToggle id={image.id} />
       </div>
     </li>
   );
