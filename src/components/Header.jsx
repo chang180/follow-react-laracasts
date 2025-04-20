@@ -9,12 +9,12 @@ export function Header() {
             alt="DevPups"
             className="h-16 transition group-hover:scale-105 group-hover:-rotate-6 md:h-20 lg:h-24"
           />
-          <p className="text-lg font-semibold">Dev Pups</p>
+          <p className="text-lg font-semibold">Dev Ops</p>
         </div>
       </a>
       {/* Hero copy */}
       <div className="mt-6">
-        <h1 className="text-lg font-bold">We've got the best puppies!</h1>
+        <h1 className="text-lg font-bold">We've got the best anime images!</h1>
         <p className="text-slate-600">
           Don't take our word — let the pictures do the talking :)
         </p>
