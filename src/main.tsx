@@ -1,4 +1,4 @@
-import { StrictMode, useEffect, useState } from "react";
+import { StrictMode, Suspense, use, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./main.css";
 import App from "./App.js";
@@ -10,6 +10,8 @@ import { images as imagesData } from "./data/images";
 import { LikedContext } from "./context/liked-context";
 import { Image } from "./types";
 import { Loader } from "lucide-react";
+import { getImages } from "./queries";
+import { ErrorBoundary } from "react-error-boundary";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -23,7 +25,20 @@ export function Main() {
   const [images, setImages] = useState<Image[]>(imagesData);
   return (
     <main>
-      <ApiImages />
+      <ErrorBoundary fallbackRender={({ error }) => (
+        <div className="bg-red-100 p-6 mt-12 shadow ring ring-black/5">
+          <div className="text-red-500">{error.message} : {error.details}</div>
+        </div>
+      )}>
+        <Suspense fallback={
+          <div className="bg-green-100 p-6 mt-12 shadow ring ring-black/5">
+            <Loader className="animate-spin stroke-slate-300" />
+          </div>
+        }>
+          <ApiImages />
+        </Suspense>
+      </ErrorBoundary>
+
       <LikedContext value={{ liked, setLiked }}>
         <div className="mt-24 grid gap-8 sm:grid-cols-2">
           <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
@@ -36,39 +51,16 @@ export function Main() {
   );
 }
 
-export function ApiImages() {
-  const [apiImages, setApiImages] = useState<[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
-  useEffect(() => {
-    async function getImages() {
-      setIsLoading(true);
-      try {
-        const response = await fetch("http://laravel12-sail-xdebug.test/api/images");
-        if (!response.ok) {
-          const errorData = await response.json();
-          setError(errorData.message);
-          throw errorData;
-        }
-        const data = await response.json();
-        setApiImages(data);
-      } catch (error) {
-        console.error("Error fetching images:", error);
-        setError("Failed to fetch images");
-      }
-      setIsLoading(false);
-    }
-    getImages();
-  }, [
-    // re-run the effect
+const imagePromise = getImages();
 
-  ]);
+function ApiImages() {
+  const apiImages = use(imagePromise)
 
   return (
-    <div className="bg-white p-6 mt-12 shadow ring ring-black/5">
-      {isLoading && <Loader className="animate-spin stroke-slate-300" />}
-      {error && <p className="text-red-500">{error}</p>}
-      {!error && !isLoading && <pre>{JSON.stringify(apiImages, null, 2)}</pre>}
+    <div className="bg-green-100 p-6 mt-12 shadow ring ring-black/5">
+      <pre>
+        {JSON.stringify(apiImages, null, 2)}
+      </pre>
     </div>
   );
 }
