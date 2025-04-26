@@ -18,7 +18,7 @@ export async function getImages() {
                 };
             }
         }
-        const data = await response.json();
+        const {data} = await response.json();
         return data;
     } catch (error) {
         console.error("Error fetching images:", error);

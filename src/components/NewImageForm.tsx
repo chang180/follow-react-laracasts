@@ -13,19 +13,19 @@ export function NewImageForm({
   return (
     <div className="mt-12 flex items-center justify-between bg-white p-8 shadow ring ring-black/5">
       <form
-        action={async(formData: FormData) => {
+        action={async (formData: FormData) => {
           // sleep(1000);
           await new Promise((resolve) => setTimeout(resolve, 1000));
           const newIndex = images.length + 1;
           // 使用 padStart 確保數字至least有兩位，不足的在前面補0
           const paddedIndex = String(newIndex).padStart(3, '0');
-          
+
           const newImage: Image = {
             id: newIndex,
             name: formData.get("name") as string,
             vibe: formData.get("trait") as string,
             imagePath: `/images/chihiro${paddedIndex}.jpg`,
-            // avatar_url: formData.get("avatar_url") as string,
+            likedBy: [{ id: 1}]
           };
           setImages((prevImages) => [...prevImages, newImage]);
         }}

@@ -41,7 +41,7 @@ function ImageCard({ image }: ImageCardProps) {
           <span className="text-slate-300">·</span>
           <p className="text-slate-500">{image.vibe}</p>
         </div>
-        <LikeToggle id={image.id} />
+        <LikeToggle image={image} />
       </div>
     </li>
   );
