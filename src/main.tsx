@@ -20,19 +20,18 @@ const imagePromise = getImages();
 
 export function Main() {
   const apiImages = use(imagePromise);
-  const [liked, setLiked] = useState<number[]>([1, 3]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [images, setImages] = useState<Image[]>(apiImages);
   return (
     <main>
-      
 
-      <LikedContext value={{ liked, setLiked }}>
+
+      <LikedContext value>
         <div className="mt-24 grid gap-8 sm:grid-cols-2">
           <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-          <Shortlist images={images} />
+          <Shortlist images={images} setImages={setImages} />
         </div>
-        <ImageList images={images} searchQuery={searchQuery} />
+        <ImageList images={images} searchQuery={searchQuery} setImages={setImages} />
       </LikedContext>
       <NewImageForm images={images} setImages={setImages} />
     </main>

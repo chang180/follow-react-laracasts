@@ -1,8 +1,9 @@
+import { Image } from "../types";
+
 export async function getImages() {
     try {
         const response = await fetch(
             "http://laravel12-sail-xdebug.test/api/images", 
-            // "http://laravel12-sail-xdebug.test/api/imagesXXX", // 故意錯誤的 URL
         );
         if (!response.ok) {
             // 嘗試解析 JSON，但如果失敗則創建一個自定義錯誤
@@ -26,6 +27,39 @@ export async function getImages() {
         if (typeof error === 'object' && error !== null && !('message' in error)) {
             error.message = "發生未知錯誤";
         }
+        throw error;
+    }
+}
+
+export async function toggleLikedStatus(id: Image['id']){
+    try {
+        // 從 cookie 中獲取 CSRF 令牌
+        const csrfToken = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('XSRF-TOKEN='))
+            ?.split('=')[1];
+        
+        // 解碼 URL 編碼的令牌
+        const decodedToken = csrfToken ? decodeURIComponent(csrfToken) : null;
+        const response = await fetch(
+            `http://laravel12-sail-xdebug.test/api/images/${id}/like`, 
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "X-XSRF-TOKEN": decodedToken || '', // 添加 CSRF 令牌頭
+                },
+            }
+        );
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw errorData;
+        }
+        const {data} = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error toggling liked status:", error);
         throw error;
     }
 }

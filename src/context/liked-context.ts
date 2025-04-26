@@ -2,8 +2,6 @@ import { createContext, Dispatch, SetStateAction, use } from "react";
 import { Image } from "../types";
 
 export const LikedContext = createContext<{
-    liked: Image['id'][],
-    setLiked: Dispatch<SetStateAction<number[]>> | null
 }>(null);
 
 export function useLiked() {

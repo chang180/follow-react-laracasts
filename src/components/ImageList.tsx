@@ -1,29 +1,31 @@
+import { Dispatch, SetStateAction } from "react";
 import { type Image } from "../types"; // Import the Image type from the types module
 import { LikeToggle } from "./LikeToggle";
 
 export function ImageList({
   images,
-  searchQuery
+  searchQuery,
+  setImages
 }: {
   images: Image[],
   searchQuery: string;
+  setImages:Dispatch<SetStateAction<Image[]>>
 }) {
   return (
     <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {images
         .filter((img) => img.vibe.toLowerCase().includes(searchQuery.toLowerCase())) // Filter images based on the search query
         .map((image) => (
-          <ImageCard key={image.id} image={image} /> // Pass the image prop to ImageCard
+          <ImageCard key={image.id} image={image} setImages={setImages} /> // Pass the image prop to ImageCard
         ))}
     </ul>
   );
 }
 
-type ImageCardProps = {
-  image: Image; // Define the type for the image prop
-};
-
-function ImageCard({ image }: ImageCardProps) {
+function ImageCard({ image, setImages }: {
+  image: Image; // Define the type of the image prop as Image
+  setImages: Dispatch<SetStateAction<Image[]>>; // Define the type of the setImages prop as a function that updates the state of images
+}) {
 
   return (
     <li
@@ -41,7 +43,7 @@ function ImageCard({ image }: ImageCardProps) {
           <span className="text-slate-300">·</span>
           <p className="text-slate-500">{image.vibe}</p>
         </div>
-        <LikeToggle image={image} />
+        <LikeToggle image={image} setImages={setImages} />
       </div>
     </li>
   );
