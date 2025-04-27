@@ -3,7 +3,7 @@ import { Image } from "../types";
 export async function getImages() {
     try {
         const response = await fetch(
-            "http://laravel12-sail-xdebug.test/api/images", 
+            "https://react-backend.chang180backend.com/api/images", 
         );
         if (!response.ok) {
             // 嘗試解析 JSON，但如果失敗則創建一個自定義錯誤
@@ -42,7 +42,7 @@ export async function toggleLikedStatus(id: Image['id']){
         // 解碼 URL 編碼的令牌
         const decodedToken = csrfToken ? decodeURIComponent(csrfToken) : null;
         const response = await fetch(
-            `http://laravel12-sail-xdebug.test/api/images/${id}/like`, 
+            `https://react-backend.chang180backend.com/api/images/${id}/like`, 
             {
                 method: "PATCH",
                 headers: {
@@ -101,7 +101,7 @@ export async function addImage(formData: FormData) {
         }
 
         const response = await fetch(
-            "http://laravel12-sail-xdebug.test/api/images",
+            "https://react-backend.chang180backend.com/api/images",
             {
                 method: "POST",
                 headers: {
