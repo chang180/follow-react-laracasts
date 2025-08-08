@@ -52,7 +52,7 @@ npm run build
 
 ## 📚 學習資源
 
-本專案基於 [Laracasts 的 React 課程](https://laracasts.com/series/learn-react-from-scratch)，該課程提供了全面且深入的 React 學習路徑。
+本專案基於 [Laracasts 的 React 課程](https://laracasts.com/series/react-from-scratch)，該課程提供了全面且深入的 React 學習路徑。
 
 ## 📈 未來計劃
 
