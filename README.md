@@ -6,7 +6,7 @@
 
 ## 📝 專案概述
 
-這是一個基於 [Laracasts React 課程](https://laracasts.com/series/learn-react-from-scratch) 的實作專案，旨在深入學習 React 生態系統並展示我對現代前端開發的理解。通過這個專案，我系統性地掌握了 React 的核心概念和最佳實踐。
+這是一個基於 [Laracasts React 課程](https://laracasts.com/series/react-from-scratch) 的實作專案，旨在深入學習 React 生態系統並展示我對現代前端開發的理解。通過這個專案，我系統性地掌握了 React 的核心概念和最佳實踐。
 
 ## 🚀 學習重點
 
